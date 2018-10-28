@@ -327,6 +327,15 @@ public class Main extends Application {
                 	pOneImageView.setX(playerOne.xCell*100+25);
                 	pOneImageView.setY(playerOne.yCell*100+25);
                 }
+                
+                if(playerOne.xCell == 1 && playerOne.yCell == 1) {
+                	playerOne.yCell = 2;
+                	pOneImageView.setY(playerOne.yCell*100+25);
+                }else if(playerOne.xCell == 5 && playerOne.yCell ==2) {
+                	playerOne.yCell = 3;
+                	pOneImageView.setY(playerOne.yCell*100+25);
+                }
+                
             }
         });
 
@@ -355,6 +364,14 @@ public class Main extends Application {
                 	pOneImageView.setX(playerOne.xCell*100+25);
                 	pOneImageView.setY(playerOne.yCell*100+25);
                 }
+                
+                if(playerOne.xCell == 1 && playerOne.yCell == 1) {
+                	playerOne.yCell = 2;
+                	pOneImageView.setY(playerOne.yCell*100+25);
+                }else if(playerOne.xCell == 5 && playerOne.yCell ==2) {
+                	playerOne.yCell = 3;
+                	pOneImageView.setY(playerOne.yCell*100+25);
+                }
 
             }
         });
@@ -381,6 +398,14 @@ public class Main extends Application {
                 	playerOne.xCell = playerOne.xCell - 8;
                 	playerOne.yCell++;
                 	pOneImageView.setX(playerOne.xCell*100+25);
+                	pOneImageView.setY(playerOne.yCell*100+25);
+                }
+                
+                if(playerOne.xCell == 1 && playerOne.yCell == 1) {
+                	playerOne.yCell = 2;
+                	pOneImageView.setY(playerOne.yCell*100+25);
+                }else if(playerOne.xCell == 5 && playerOne.yCell ==2) {
+                	playerOne.yCell = 3;
                 	pOneImageView.setY(playerOne.yCell*100+25);
                 }
             }
@@ -414,6 +439,14 @@ public class Main extends Application {
                 	pTwoImageView.setX(playerTwo.xCell*100+25);
                 	pTwoImageView.setY(playerTwo.yCell*100+25);
                 }
+                
+                if(playerTwo.xCell == 1 && playerTwo.yCell == 1) {
+                	playerTwo.yCell = 2;
+                	pTwoImageView.setY(playerTwo.yCell*100+25);
+                }else if(playerTwo.xCell == 5 && playerTwo.yCell ==2) {
+                	playerTwo.yCell = 3;
+                	pTwoImageView.setY(playerTwo.yCell*100+25);
+                }
             }
         });
 
@@ -439,6 +472,14 @@ public class Main extends Application {
                 	playerTwo.xCell = playerTwo.xCell - 8;
                 	playerTwo.yCell++;
                 	pTwoImageView.setX(playerTwo.xCell*100+25);
+                	pTwoImageView.setY(playerTwo.yCell*100+25);
+                }
+                
+                if(playerTwo.xCell == 1 && playerTwo.yCell == 1) {
+                	playerTwo.yCell = 2;
+                	pTwoImageView.setY(playerTwo.yCell*100+25);
+                }else if(playerTwo.xCell == 5 && playerTwo.yCell ==2) {
+                	playerTwo.yCell = 3;
                 	pTwoImageView.setY(playerTwo.yCell*100+25);
                 }
             }
@@ -467,6 +508,14 @@ public class Main extends Application {
                 	playerTwo.xCell = playerTwo.xCell - 8;
                 	playerTwo.yCell++;
                 	pTwoImageView.setX(playerTwo.xCell*100+25);
+                	pTwoImageView.setY(playerTwo.yCell*100+25);
+                }
+                
+                if(playerTwo.xCell == 1 && playerTwo.yCell == 1) {
+                	playerTwo.yCell = 2;
+                	pTwoImageView.setY(playerTwo.yCell*100+25);
+                }else if(playerTwo.xCell == 5 && playerTwo.yCell ==2) {
+                	playerTwo.yCell = 3;
                 	pTwoImageView.setY(playerTwo.yCell*100+25);
                 }
             }
