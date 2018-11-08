@@ -46,6 +46,7 @@ public class Main extends Application {
     //temporary buttons and variables
     Button tmpT1Button, team1AnswerAButton, team1AnswerBButton, team1AnswerCButton;
     Button tmpT2Button, team2AnswerAButton, team2AnswerBButton, team2AnswerCButton;
+    Button expPack;
     Boolean questionDisplay = false;
     int t1count = 0;
     int t2count = 0;
@@ -93,6 +94,12 @@ public class Main extends Application {
         playerTwoScoreLabel.setTranslateX(710);
         playerTwoScoreLabel.setTranslateY(415);
         root.getChildren().add(playerTwoScoreLabel);
+
+        // adds a button for Expansion Pack
+        expPack = new Button("Expansion");
+        expPack.setTranslateX(850);
+        expPack.setTranslateY(375);
+        root.getChildren().add(expPack);
 
 
         // initialize arrays with questions
