@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.Font;
@@ -36,6 +37,8 @@ public class Main extends Application {
     
     Image diceImage;
     ImageView diceImageView;
+
+    Image startImage, endImage;
     
     Player playerOne, playerTwo;
     int rollValue;
@@ -46,6 +49,7 @@ public class Main extends Application {
     //temporary buttons and variables
     Button tmpT1Button, team1AnswerAButton, team1AnswerBButton, team1AnswerCButton;
     Button tmpT2Button, team2AnswerAButton, team2AnswerBButton, team2AnswerCButton;
+    Button expPack;
     Boolean questionDisplay = false;
     int t1count = 0;
     int t2count = 0;
@@ -93,6 +97,12 @@ public class Main extends Application {
         playerTwoScoreLabel.setTranslateX(710);
         playerTwoScoreLabel.setTranslateY(415);
         root.getChildren().add(playerTwoScoreLabel);
+
+        // adds a button for Expansion Pack
+        expPack = new Button("Expansion");
+        expPack.setTranslateX(850);
+        expPack.setTranslateY(375);
+        root.getChildren().add(expPack);
 
 
         // initialize arrays with questions
@@ -554,10 +564,14 @@ public class Main extends Application {
                 Rectangle rect = new Rectangle(x*scale,y*scale,scale,scale);
                 rect.setStroke(Color.BLACK); // We want the black outline
                 if(x == 0 && y == 0){
-                    rect.setFill(Color.GREEN); // fills the board with random colors
+                    //rect.setFill(Color.GREEN); // fills the board with random colors
+                    startImage = new Image("/img/start.png", playerScale, playerScale, true, true);
+                    rect.setFill(new ImagePattern(startImage));
                 }
                 else if(x == 7 && y == 3){
-                    rect.setFill(Color.RED); // fills the board with random colors
+                    //rect.setFill(Color.RED); // fills the board with random colors
+                    endImage = new Image("/img/end.png", playerScale, playerScale, true, true);
+                    rect.setFill(new ImagePattern(endImage));
                 }
                 else{
                     rect.setFill(Color.color(Math.random(), Math.random(), Math.random())); // fills the board with random colors
