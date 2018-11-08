@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.Font;
@@ -36,6 +37,8 @@ public class Main extends Application {
     
     Image diceImage;
     ImageView diceImageView;
+
+    Image startImage, endImage;
     
     Player playerOne, playerTwo;
     int rollValue;
@@ -561,10 +564,14 @@ public class Main extends Application {
                 Rectangle rect = new Rectangle(x*scale,y*scale,scale,scale);
                 rect.setStroke(Color.BLACK); // We want the black outline
                 if(x == 0 && y == 0){
-                    rect.setFill(Color.GREEN); // fills the board with random colors
+                    //rect.setFill(Color.GREEN); // fills the board with random colors
+                    startImage = new Image("/img/start.png", playerScale, playerScale, true, true);
+                    rect.setFill(new ImagePattern(startImage));
                 }
                 else if(x == 7 && y == 3){
-                    rect.setFill(Color.RED); // fills the board with random colors
+                    //rect.setFill(Color.RED); // fills the board with random colors
+                    endImage = new Image("/img/end.png", playerScale, playerScale, true, true);
+                    rect.setFill(new ImagePattern(endImage));
                 }
                 else{
                     rect.setFill(Color.color(Math.random(), Math.random(), Math.random())); // fills the board with random colors
