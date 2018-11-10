@@ -17,13 +17,6 @@ import static org.junit.Assert.fail;
 public class MainTest {
 
     @Test
-    public void rollDiceTest(){
-        Main main = new Main();
-
-        assertThat(main.rollValue, equalTo(main.rollDice()));
-    }
-
-    @Test
     public void getCorrectAnswerTest(){
         Main main = new Main();
         String player1 = "player1";
