@@ -49,7 +49,7 @@ public class Main extends Application {
     //temporary buttons and variables
     Button tmpT1Button, team1AnswerAButton, team1AnswerBButton, team1AnswerCButton;
     Button tmpT2Button, team2AnswerAButton, team2AnswerBButton, team2AnswerCButton;
-    Button expPack;
+    Button expPack, sourceCodeManagementGit, buildAutomation;
     Boolean questionDisplay = false;
     int t1count = 0;
     int t2count = 0;
@@ -98,7 +98,7 @@ public class Main extends Application {
         root.getChildren().add(playerOneScoreLabel);
 
         playerTwoScoreLabel = new Label("Player Two Score: " + playerTwoScore);
-        playerTwoScoreLabel.setTranslateX(550);
+        playerTwoScoreLabel.setTranslateX(500);
         playerTwoScoreLabel.setTranslateY(415);
         root.getChildren().add(playerTwoScoreLabel);
 
@@ -108,7 +108,7 @@ public class Main extends Application {
         root.getChildren().add(playerOneLivesLabel);
 
         playerTwoLivesLabel = new Label("Player Two Lives: " + playerTwoLives);
-        playerTwoLivesLabel.setTranslateX(700);
+        playerTwoLivesLabel.setTranslateX(640);
         playerTwoLivesLabel.setTranslateY(415);
         root.getChildren().add(playerTwoLivesLabel);
         
@@ -117,6 +117,17 @@ public class Main extends Application {
         expPack.setTranslateX(850);
         expPack.setTranslateY(375);
         root.getChildren().add(expPack);
+
+        // adds buttons for "Source Code Management & Git" and "Build Automation"
+        sourceCodeManagementGit =  new Button("SCManagement&Git");
+        sourceCodeManagementGit.setTranslateX(800);
+        sourceCodeManagementGit.setTranslateY(415);
+        root.getChildren().add(sourceCodeManagementGit);
+
+        buildAutomation = new Button("BA");
+        buildAutomation.setTranslateX(950);
+        buildAutomation.setTranslateY(415);
+        root.getChildren().add(buildAutomation);
 
 
         // initialize arrays with questions
