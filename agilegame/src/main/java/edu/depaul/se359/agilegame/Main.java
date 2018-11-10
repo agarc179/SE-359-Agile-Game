@@ -43,7 +43,7 @@ public class Main extends Application {
     Player playerOne, playerTwo;
     int rollValue;
     Button diceRoll;
-    Label diceLabel, playerOneScoreLabel, playerTwoScoreLabel, playerOneAnswerLabel, playerTwoAnswerLabel, playerOneLabelResponse, playerTwoLabelResponse;
+    Label diceLabel, playerOneScoreLabel, playerTwoScoreLabel, playerOneAnswerLabel, playerTwoAnswerLabel, playerOneLabelResponse, playerTwoLabelResponse, playerOneLivesLabel, playerTwoLivesLabel;
     String[] team1questions;
     String[] team2questions;
     //temporary buttons and variables
@@ -58,6 +58,10 @@ public class Main extends Application {
 
     int playerOneScore = 0;
     int playerTwoScore = 0;
+    
+    int playerOneLives = 3;
+    int playerTwoLives = 3;
+    
     String a = "A";
     String b = "B";
     String c = "C";
@@ -88,16 +92,26 @@ public class Main extends Application {
         diceLabel.setTranslateY(100);
         root.getChildren().add(diceLabel);
 
-        playerOneScoreLabel = new Label("Player One: " + playerOneScore);
+        playerOneScoreLabel = new Label("Player One Score: " + playerOneScore);
         playerOneScoreLabel.setTranslateX(10);
         playerOneScoreLabel.setTranslateY(415);
         root.getChildren().add(playerOneScoreLabel);
 
-        playerTwoScoreLabel = new Label("Player Two: " + playerTwoScore);
-        playerTwoScoreLabel.setTranslateX(710);
+        playerTwoScoreLabel = new Label("Player Two Score: " + playerTwoScore);
+        playerTwoScoreLabel.setTranslateX(550);
         playerTwoScoreLabel.setTranslateY(415);
         root.getChildren().add(playerTwoScoreLabel);
 
+        playerOneLivesLabel = new Label("Player One Lives: " + playerOneLives);
+        playerOneLivesLabel.setTranslateX(150);
+        playerOneLivesLabel.setTranslateY(415);
+        root.getChildren().add(playerOneLivesLabel);
+
+        playerTwoLivesLabel = new Label("Player Two Lives: " + playerTwoLives);
+        playerTwoLivesLabel.setTranslateX(700);
+        playerTwoLivesLabel.setTranslateY(415);
+        root.getChildren().add(playerTwoLivesLabel);
+        
         // adds a button for Expansion Pack
         expPack = new Button("Expansion");
         expPack.setTranslateX(850);
@@ -309,6 +323,43 @@ public class Main extends Application {
 
 
     }
+    
+    public void reduceLivesPlayerOne() {
+    	System.out.println("\nX:" + playerOne.xCell + "Y:" + playerOne.yCell);
+        System.out.println("X:" + pOneImageView.getX() + "Y:" + pOneImageView.getY());
+        
+    	if(playerOneLives == 1) {
+    		playerOne.xCell = 0;
+    		playerOne.yCell = 0;
+            pOneImageView.setX(25);
+            pOneImageView.setY(0);
+    		playerOneLives = 3;
+    		playerOneLivesLabel.setText("Player One Lives: " + playerOneLives);
+    		
+    	}else {
+    		playerOneLives--;
+    		playerOneLivesLabel.setText("Player One Lives: " + playerOneLives);
+    	}
+    	
+    	System.out.println("\nX:" + playerOne.xCell + "Y:" + playerOne.yCell);
+        System.out.println("X:" + pOneImageView.getX() + "Y:" + pOneImageView.getY());
+    }
+    
+    public void reduceLivesPlayerTwo() {
+    	if(playerTwoLives == 1) {
+    		playerTwo.xCell = 0;
+    		playerTwo.yCell = 0;
+            pTwoImageView.setX(25);
+            pTwoImageView.setY(50);
+    		playerTwoLives= 3;
+    		playerTwoLivesLabel.setText("Player One Lives: " + playerTwoLives);
+    		
+    	}else {
+    		playerTwoLives--;
+    		playerTwoLivesLabel.setText("Player One Lives: " + playerTwoLives);
+
+    	}
+    }
 
 
     public void team1AnswerButtons(){
@@ -316,6 +367,15 @@ public class Main extends Application {
         team1AnswerAButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+            	 playerOne.xCell = rollValue + playerOne.xCell;
+                 pOneImageView.setX(playerOne.xCell*100+25);
+                 if(playerOne.xCell > 7) {
+                 	playerOne.xCell = playerOne.xCell - 8;
+                 	playerOne.yCell++;
+                 	pOneImageView.setX(playerOne.xCell*100+25);
+                 	pOneImageView.setY(playerOne.yCell*100+25);
+                 }
+                 
                 if(t1count == 1 && isQuestionBeingDisplayed() == true){
                     playerOneScore++;
                     playerOneScoreLabel.setText("Player One: " + playerOneScore);
@@ -325,11 +385,19 @@ public class Main extends Application {
                     
                 }
                 else{
+                    reduceLivesPlayerOne();
                     playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
                     playerOneLabelResponse.setText("You are: " + "WRONG!");
                     dismissQuestion();
                 }
-                playerOne.xCell = rollValue + playerOne.xCell;
+               
+            }
+        });
+
+        team1AnswerBButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+            	playerOne.xCell = rollValue + playerOne.xCell;
                 pOneImageView.setX(playerOne.xCell*100+25);
                 if(playerOne.xCell > 7) {
                 	playerOne.xCell = playerOne.xCell - 8;
@@ -337,12 +405,7 @@ public class Main extends Application {
                 	pOneImageView.setX(playerOne.xCell*100+25);
                 	pOneImageView.setY(playerOne.yCell*100+25);
                 }
-            }
-        });
 
-        team1AnswerBButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
                 if((t1count == 2 && isQuestionBeingDisplayed() == true) ||
                         (t1count == 3 && isQuestionBeingDisplayed() == true) ||
                         (t1count == 4 && isQuestionBeingDisplayed() == true)){
@@ -353,11 +416,19 @@ public class Main extends Application {
                     dismissQuestion();
                 }
                 else{
+                    reduceLivesPlayerOne();
                     playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
                     playerOneLabelResponse.setText("You are: " + "WRONG!");
                     dismissQuestion();
                 }
-                playerOne.xCell = rollValue + playerOne.xCell;
+                
+            }
+        });
+
+        team1AnswerCButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+            	playerOne.xCell = rollValue + playerOne.xCell;
                 pOneImageView.setX(playerOne.xCell*100+25);
                 if(playerOne.xCell > 7) {
                 	playerOne.xCell = playerOne.xCell - 8;
@@ -365,13 +436,7 @@ public class Main extends Application {
                 	pOneImageView.setX(playerOne.xCell*100+25);
                 	pOneImageView.setY(playerOne.yCell*100+25);
                 }
-
-            }
-        });
-
-        team1AnswerCButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
+                
                 if(t1count == 5 && isQuestionBeingDisplayed() == true){
                     playerOneScore++;
                     playerOneScoreLabel.setText("Player One: " + playerOneScore);
@@ -381,18 +446,12 @@ public class Main extends Application {
                     
                 }
                 else{
+                    reduceLivesPlayerOne();
                     playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
                     playerOneLabelResponse.setText("You are: " + "WRONG!");
                     dismissQuestion();
                 }
-                playerOne.xCell = rollValue + playerOne.xCell;
-                pOneImageView.setX(playerOne.xCell*100+25);
-                if(playerOne.xCell > 7) {
-                	playerOne.xCell = playerOne.xCell - 8;
-                	playerOne.yCell++;
-                	pOneImageView.setX(playerOne.xCell*100+25);
-                	pOneImageView.setY(playerOne.yCell*100+25);
-                }
+                
             }
         });
 
@@ -402,6 +461,15 @@ public class Main extends Application {
         team2AnswerAButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+            	playerTwo.xCell = rollValue + playerTwo.xCell;
+                pTwoImageView.setX(playerTwo.xCell*100+25);
+                if(playerTwo.xCell > 7) {
+                	playerTwo.xCell = playerTwo.xCell - 8;
+                	playerTwo.yCell++;
+                	pTwoImageView.setX(playerTwo.xCell*100+25);
+                	pTwoImageView.setY(playerTwo.yCell*100+25);
+                }
+                
                 if((t2count == 2 && isQuestionBeingDisplayed()) ||
                         (t2count == 3 && isQuestionBeingDisplayed())){
                     playerTwoScore++;
@@ -412,11 +480,20 @@ public class Main extends Application {
                     
                 }
                 else{
+                	reduceLivesPlayerTwo();
                     playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
                     playerTwoLabelResponse.setText("You Are: " + "WRONG!");
                     dismissQuestion();
+                    
                 }
-                playerTwo.xCell = rollValue + playerTwo.xCell;
+                
+            }
+        });
+
+        team2AnswerBButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+            	playerTwo.xCell = rollValue + playerTwo.xCell;
                 pTwoImageView.setX(playerTwo.xCell*100+25);
                 if(playerTwo.xCell > 7) {
                 	playerTwo.xCell = playerTwo.xCell - 8;
@@ -424,12 +501,7 @@ public class Main extends Application {
                 	pTwoImageView.setX(playerTwo.xCell*100+25);
                 	pTwoImageView.setY(playerTwo.yCell*100+25);
                 }
-            }
-        });
-
-        team2AnswerBButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
+                 
                 if(t2count == 1 && isQuestionBeingDisplayed()){
                     playerTwoScore++;
                     playerTwoScoreLabel.setText("Player Two: " + playerTwoScore);
@@ -440,10 +512,19 @@ public class Main extends Application {
                     
                 }
                 else{
+                    reduceLivesPlayerTwo();
                     playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
                     playerTwoLabelResponse.setText("Your are: " + "WRONG!");
                     dismissQuestion();
                 }
+               
+            }
+        });
+
+        team2AnswerCButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+            	playerTwo.xCell = rollValue + playerTwo.xCell;
                 pTwoImageView.setX(playerTwo.xCell*100+25);
                 if(playerTwo.xCell > 7) {
                 	playerTwo.xCell = playerTwo.xCell - 8;
@@ -451,12 +532,7 @@ public class Main extends Application {
                 	pTwoImageView.setX(playerTwo.xCell*100+25);
                 	pTwoImageView.setY(playerTwo.yCell*100+25);
                 }
-            }
-        });
-
-        team2AnswerCButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
+                
                 if((t2count == 4 && isQuestionBeingDisplayed()) ||
                         (t2count == 5 && isQuestionBeingDisplayed())){
                     playerTwoScore++;
@@ -464,21 +540,14 @@ public class Main extends Application {
                     playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
                     playerTwoLabelResponse.setText("Your are: " + "CORRECT!");
                     dismissQuestion();
-                    
                 }
                 else{
+                    reduceLivesPlayerTwo();
                     playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
                     playerTwoLabelResponse.setText("You Are: " + "WRONG!");
                     dismissQuestion();
                 }
-                playerTwo.xCell = rollValue + playerTwo.xCell;
-                pTwoImageView.setX(playerTwo.xCell*100+25);
-                if(playerTwo.xCell > 7) {
-                	playerTwo.xCell = playerTwo.xCell - 8;
-                	playerTwo.yCell++;
-                	pTwoImageView.setX(playerTwo.xCell*100+25);
-                	pTwoImageView.setY(playerTwo.yCell*100+25);
-                }
+                
             }
         });
     }
