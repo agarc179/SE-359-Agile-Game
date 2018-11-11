@@ -38,12 +38,12 @@ public class Main extends Application {
     Image diceImage;
     ImageView diceImageView;
 
-    Image startImage, endImage;
+    Image startImage, endImage, shortcutImageOne, shortcutImageTwo;
     
     Player playerOne, playerTwo;
     int rollValue;
     Button diceRoll;
-    Label diceLabel, playerOneScoreLabel, playerTwoScoreLabel, playerOneAnswerLabel, playerTwoAnswerLabel, playerOneLabelResponse, playerTwoLabelResponse, playerOneLivesLabel, playerTwoLivesLabel;
+    Label diceLabel, playerOneScoreLabel, playerTwoScoreLabel, playerOneAnswerLabel, playerTwoAnswerLabel, playerOneLabelResponse, playerTwoLabelResponse, playerOneLivesLabel, playerTwoLivesLabel, shortcutLabel;
     String[] team1questions;
     String[] team2questions;
     //temporary buttons and variables
@@ -79,6 +79,11 @@ public class Main extends Application {
         gameMap = gameBoard.getMap();
         drawMap();
         gameBoard.displayMap();
+        
+        shortcutLabel = new Label ("");
+        shortcutLabel.setTranslateX(325);
+        shortcutLabel.setTranslateY(415);
+        root.getChildren().add(shortcutLabel);
 
         // adds a button to dice roll
         diceRoll = new Button("Roll");
@@ -384,7 +389,19 @@ public class Main extends Application {
                  	playerOne.xCell = playerOne.xCell - 8;
                  	playerOne.yCell++;
                  	pOneImageView.setX(playerOne.xCell*100+25);
-                 	pOneImageView.setY(playerOne.yCell*100+25);
+                 	pOneImageView.setY(playerOne.yCell*100);
+                 }
+                 
+                 if(playerOne.xCell == 1 && playerOne.yCell == 1) {
+                 	playerOne.yCell = 2;
+                 	pOneImageView.setY(playerOne.yCell*100);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                 }else if(playerOne.xCell == 5 && playerOne.yCell ==2) {
+                 	playerOne.yCell = 3;
+                 	pOneImageView.setY(playerOne.yCell*100);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                 } else {
+                 	shortcutLabel.setText("");
                  }
                  
                 if(t1count == 1 && isQuestionBeingDisplayed() == true){
@@ -414,7 +431,19 @@ public class Main extends Application {
                 	playerOne.xCell = playerOne.xCell - 8;
                 	playerOne.yCell++;
                 	pOneImageView.setX(playerOne.xCell*100+25);
-                	pOneImageView.setY(playerOne.yCell*100+25);
+                	pOneImageView.setY(playerOne.yCell*100);
+                }
+                
+                if(playerOne.xCell == 1 && playerOne.yCell == 1) {
+                	playerOne.yCell = 2;
+                	pOneImageView.setY(playerOne.yCell*100);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                }else if(playerOne.xCell == 5 && playerOne.yCell ==2) {
+                	playerOne.yCell = 3;
+                	pOneImageView.setY(playerOne.yCell*100);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                } else {
+                	shortcutLabel.setText("");
                 }
 
                 if((t1count == 2 && isQuestionBeingDisplayed() == true) ||
@@ -445,7 +474,19 @@ public class Main extends Application {
                 	playerOne.xCell = playerOne.xCell - 8;
                 	playerOne.yCell++;
                 	pOneImageView.setX(playerOne.xCell*100+25);
-                	pOneImageView.setY(playerOne.yCell*100+25);
+                	pOneImageView.setY(playerOne.yCell*100);
+                }
+                
+                if(playerOne.xCell == 1 && playerOne.yCell == 1) {
+                	playerOne.yCell = 2;
+                	pOneImageView.setY(playerOne.yCell*100);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                }else if(playerOne.xCell == 5 && playerOne.yCell ==2) {
+                	playerOne.yCell = 3;
+                	pOneImageView.setY(playerOne.yCell*100);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                } else {
+                	shortcutLabel.setText("");
                 }
                 
                 if(t1count == 5 && isQuestionBeingDisplayed() == true){
@@ -478,7 +519,19 @@ public class Main extends Application {
                 	playerTwo.xCell = playerTwo.xCell - 8;
                 	playerTwo.yCell++;
                 	pTwoImageView.setX(playerTwo.xCell*100+25);
-                	pTwoImageView.setY(playerTwo.yCell*100+25);
+                	pTwoImageView.setY(playerTwo.yCell*100+50);
+                }
+                
+                if(playerTwo.xCell == 1 && playerTwo.yCell == 1) {
+                	playerTwo.yCell = 2;
+                	pTwoImageView.setY(playerTwo.yCell*100+50);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                }else if(playerTwo.xCell == 5 && playerTwo.yCell ==2) {
+                	playerTwo.yCell = 3;
+                	pTwoImageView.setY(playerTwo.yCell*100+50);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                } else {
+                 	shortcutLabel.setText("");
                 }
                 
                 if((t2count == 2 && isQuestionBeingDisplayed()) ||
@@ -510,7 +563,19 @@ public class Main extends Application {
                 	playerTwo.xCell = playerTwo.xCell - 8;
                 	playerTwo.yCell++;
                 	pTwoImageView.setX(playerTwo.xCell*100+25);
-                	pTwoImageView.setY(playerTwo.yCell*100+25);
+                	pTwoImageView.setY(playerTwo.yCell*100+50);
+                }
+                
+                if(playerTwo.xCell == 1 && playerTwo.yCell == 1) {
+                	playerTwo.yCell = 2;
+                	pTwoImageView.setY(playerTwo.yCell*100+50);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                }else if(playerTwo.xCell == 5 && playerTwo.yCell ==2) {
+                	playerTwo.yCell = 3;
+                	pTwoImageView.setY(playerTwo.yCell*100+50);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                } else {
+                 	shortcutLabel.setText("");
                 }
                  
                 if(t2count == 1 && isQuestionBeingDisplayed()){
@@ -541,7 +606,19 @@ public class Main extends Application {
                 	playerTwo.xCell = playerTwo.xCell - 8;
                 	playerTwo.yCell++;
                 	pTwoImageView.setX(playerTwo.xCell*100+25);
-                	pTwoImageView.setY(playerTwo.yCell*100+25);
+                	pTwoImageView.setY(playerTwo.yCell*100+50);
+                }
+                
+                if(playerTwo.xCell == 1 && playerTwo.yCell == 1) {
+                	playerTwo.yCell = 2;
+                	pTwoImageView.setY(playerTwo.yCell*100+50);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                }else if(playerTwo.xCell == 5 && playerTwo.yCell ==2) {
+                	playerTwo.yCell = 3;
+                	pTwoImageView.setY(playerTwo.yCell*100+50);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                } else {
+                 	shortcutLabel.setText("");
                 }
                 
                 if((t2count == 4 && isQuestionBeingDisplayed()) ||
@@ -653,6 +730,14 @@ public class Main extends Application {
                     endImage = new Image("/img/end.png", playerScale, playerScale, true, true);
                     rect.setFill(new ImagePattern(endImage));
                 }
+                else if(x == 1 && y == 1 || x == 5 && y == 2) {
+                	shortcutImageOne = new Image("/img/shortcutImageOne.png", playerScale, playerScale, true, true);
+                    rect.setFill(new ImagePattern(shortcutImageOne));
+                } 
+//                else if(x == 7 && y == 1) {
+//                	shortcutImageTwo = new Image("/img/shortcutImageTwo.png", playerScale, playerScale, true, true);
+//                    rect.setFill(new ImagePattern(shortcutImageTwo));
+//                }
                 else{
                     rect.setFill(Color.color(Math.random(), Math.random(), Math.random())); // fills the board with random colors
                 }
