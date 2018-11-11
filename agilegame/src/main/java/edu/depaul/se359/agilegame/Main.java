@@ -6,6 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,6 +20,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
 
 import java.util.Random;
 
@@ -65,6 +68,9 @@ public class Main extends Application {
     String a = "A";
     String b = "B";
     String c = "C";
+
+    //end game notification
+    Alert end;
 
 
     @Override
@@ -336,8 +342,6 @@ public class Main extends Application {
         });
 
         team2AnswerButtons();
-
-
     }
     
     public void reduceLivesPlayerOne() {
@@ -418,7 +422,10 @@ public class Main extends Application {
                     playerOneLabelResponse.setText("You are: " + "WRONG!");
                     dismissQuestion();
                 }
-               
+                System.out.println("T1 A Button T1X: " + playerOne.xCell + "T1Y " + playerOne.yCell);
+                if(playerOne.xCell == 7 && playerOne.yCell == 3){
+                    displayEndGameNotification();
+                }
             }
         });
 
@@ -461,7 +468,10 @@ public class Main extends Application {
                     playerOneLabelResponse.setText("You are: " + "WRONG!");
                     dismissQuestion();
                 }
-                
+                System.out.println("T1 B Button T1X: " + playerOne.xCell + "T1Y " + playerOne.yCell);
+                if(playerOne.xCell == 7 && playerOne.yCell == 3){
+                    displayEndGameNotification();
+                }
             }
         });
 
@@ -503,10 +513,13 @@ public class Main extends Application {
                     playerOneLabelResponse.setText("You are: " + "WRONG!");
                     dismissQuestion();
                 }
-                
+                System.out.println("T1 C Button T1X: " + playerOne.xCell + "T1Y " + playerOne.yCell);
+                if(playerOne.xCell == 7 && playerOne.yCell == 3){
+                    displayEndGameNotification();
+                }
             }
         });
-
+        System.out.println("TEAM 1: " + playerOne.xCell + " " + playerOne.yCell);
     }
 
     public void team2AnswerButtons(){
@@ -550,7 +563,10 @@ public class Main extends Application {
                     dismissQuestion();
                     
                 }
-                
+                System.out.println("T2 A Button T2X: " + playerTwo.xCell + "T2Y " + playerTwo.yCell);
+                if(playerTwo.xCell == 7 && playerTwo.yCell == 3){
+                    displayEndGameNotification();
+                }
             }
         });
 
@@ -593,7 +609,10 @@ public class Main extends Application {
                     playerTwoLabelResponse.setText("Your are: " + "WRONG!");
                     dismissQuestion();
                 }
-               
+                System.out.println("T2 B Button T2X: " + playerTwo.xCell + "T2Y " + playerTwo.yCell);
+                if(playerTwo.xCell == 7 && playerTwo.yCell == 3){
+                    displayEndGameNotification();
+                }
             }
         });
 
@@ -635,7 +654,10 @@ public class Main extends Application {
                     playerTwoLabelResponse.setText("You Are: " + "WRONG!");
                     dismissQuestion();
                 }
-                
+                System.out.println("T2 C Button T2X: " + playerTwo.xCell + "T2Y " + playerTwo.yCell);
+                if(playerTwo.xCell == 7 && playerTwo.yCell == 3){
+                    displayEndGameNotification();
+                }
             }
         });
     }
@@ -656,6 +678,15 @@ public class Main extends Application {
         else {
             return "";
         }
+    }
+
+    public void displayEndGameNotification(){
+        ButtonType playAgain = new ButtonType("Play Again", ButtonBar.ButtonData.OK_DONE);
+        ButtonType expansionPack = new ButtonType("Expansion Pack", ButtonBar.ButtonData.OK_DONE);
+        end = new Alert(Alert.AlertType.INFORMATION, "Good Game!", playAgain, expansionPack);
+        end.setTitle("Game Over");
+        end.setHeaderText(null);
+        end.showAndWait(); //returns a ButtonType value that we can use to figure out which button was pressed, if any
     }
 
     public void displayQuestion(String[] questions, int count, String player){
