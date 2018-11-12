@@ -422,6 +422,13 @@ public class Main extends Application {
                     playerOneLabelResponse.setText("You are: " + "WRONG!");
                     dismissQuestion();
                 }
+                //if exceeds game board at the end, go to x=7 and y=3
+                if(playerOne.yCell > 3 || (playerOne.yCell == 3 && playerOne.xCell > 7)){
+                    playerOne.xCell = 7;
+                    playerOne.yCell = 3;
+                    pOneImageView.setX(playerOne.xCell*100+25);
+                    pOneImageView.setY(playerOne.yCell*100);
+                }
                 System.out.println("T1 A Button T1X: " + playerOne.xCell + "T1Y " + playerOne.yCell);
                 if(playerOne.xCell == 7 && playerOne.yCell == 3){
                     displayEndGameNotification();
@@ -468,6 +475,13 @@ public class Main extends Application {
                     playerOneLabelResponse.setText("You are: " + "WRONG!");
                     dismissQuestion();
                 }
+                //if exceeds game board at the end, go to x=7 and y=3
+                if(playerOne.yCell > 3 || (playerOne.yCell == 3 && playerOne.xCell > 7)){
+                    playerOne.xCell = 7;
+                    playerOne.yCell = 3;
+                    pOneImageView.setX(playerOne.xCell*100+25);
+                    pOneImageView.setY(playerOne.yCell*100);
+                }
                 System.out.println("T1 B Button T1X: " + playerOne.xCell + "T1Y " + playerOne.yCell);
                 if(playerOne.xCell == 7 && playerOne.yCell == 3){
                     displayEndGameNotification();
@@ -512,6 +526,13 @@ public class Main extends Application {
                     playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
                     playerOneLabelResponse.setText("You are: " + "WRONG!");
                     dismissQuestion();
+                }
+                //if exceeds game board at the end, go to x=7 and y=3
+                if(playerOne.yCell > 3 || (playerOne.yCell == 3 && playerOne.xCell > 7)){
+                    playerOne.xCell = 7;
+                    playerOne.yCell = 3;
+                    pOneImageView.setX(playerOne.xCell*100+25);
+                    pOneImageView.setY(playerOne.yCell*100);
                 }
                 System.out.println("T1 C Button T1X: " + playerOne.xCell + "T1Y " + playerOne.yCell);
                 if(playerOne.xCell == 7 && playerOne.yCell == 3){
@@ -563,6 +584,13 @@ public class Main extends Application {
                     dismissQuestion();
                     
                 }
+                //if exceeds game board at the end, go to x=7 and y=3
+                if(playerTwo.yCell > 3 || (playerTwo.yCell == 3 && playerTwo.xCell > 7)){
+                    playerTwo.xCell = 7;
+                    playerTwo.yCell = 3;
+                    pTwoImageView.setX(playerTwo.xCell*100+25);
+                    pTwoImageView.setY(playerTwo.yCell*100+50);
+                }
                 System.out.println("T2 A Button T2X: " + playerTwo.xCell + "T2Y " + playerTwo.yCell);
                 if(playerTwo.xCell == 7 && playerTwo.yCell == 3){
                     displayEndGameNotification();
@@ -609,6 +637,14 @@ public class Main extends Application {
                     playerTwoLabelResponse.setText("Your are: " + "WRONG!");
                     dismissQuestion();
                 }
+                //if exceeds game board at the end, go to x=7 and y=3
+                System.out.println("T2 B Button T2X: " + playerTwo.xCell + "T2Y " + playerTwo.yCell);
+                if(playerTwo.yCell > 3 || (playerTwo.yCell == 3 && playerTwo.xCell > 7)){
+                    playerTwo.xCell = 7;
+                    playerTwo.yCell = 3;
+                    pTwoImageView.setX(playerTwo.xCell*100+25);
+                    pTwoImageView.setY(playerTwo.yCell*100+50);
+                }
                 System.out.println("T2 B Button T2X: " + playerTwo.xCell + "T2Y " + playerTwo.yCell);
                 if(playerTwo.xCell == 7 && playerTwo.yCell == 3){
                     displayEndGameNotification();
@@ -653,6 +689,13 @@ public class Main extends Application {
                     playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
                     playerTwoLabelResponse.setText("You Are: " + "WRONG!");
                     dismissQuestion();
+                }
+                //if exceeds game board at the end, go to x=7 and y=3
+                if(playerTwo.yCell > 3 || (playerTwo.yCell == 3 && playerTwo.xCell > 7)){
+                    playerTwo.xCell = 7;
+                    playerTwo.yCell = 3;
+                    pTwoImageView.setX(playerTwo.xCell*100+25);
+                    pTwoImageView.setY(playerTwo.yCell*100+50);
                 }
                 System.out.println("T2 C Button T2X: " + playerTwo.xCell + "T2Y " + playerTwo.yCell);
                 if(playerTwo.xCell == 7 && playerTwo.yCell == 3){
