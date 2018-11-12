@@ -616,7 +616,7 @@ public class Main extends Application {
             return a;
         }
         else if((t1count == 2 && player == "player1") ||
-        		(t1count == 10 && player == "player1") ||
+        		(t1count == 10 && player == "player2") ||
         		(t1count == 3 && player == "player1") || (t1count == 4 && player == "player1") ||
                     (t2count == 1 && player == "player2")){
             return b;
