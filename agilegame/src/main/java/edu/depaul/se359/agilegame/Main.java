@@ -784,7 +784,7 @@ public class Main extends Application {
         
         root.getChildren().add(diceImageView);
 
-        return randInt;
+        return rollValue;
 
     }
 
