@@ -21,7 +21,7 @@ public class MainTest {
         Main main = new Main();
         String player1 = "player1";
         int t1count = 1;
-        
+
         if(t1count == 1 && player1.equals("player1")){
             assertThat("", equalTo(main.getCorrectAnswer(player1)));
         }
