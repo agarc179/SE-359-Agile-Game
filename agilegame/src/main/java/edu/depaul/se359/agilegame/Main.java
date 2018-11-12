@@ -6,6 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,10 +15,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
 
 import java.util.Random;
 
@@ -36,17 +40,19 @@ public class Main extends Application {
     
     Image diceImage;
     ImageView diceImageView;
+
+    Image startImage, endImage, shortcutImageOne, shortcutImageTwo;
     
     Player playerOne, playerTwo;
     int rollValue;
     Button diceRoll;
-    Label diceLabel, playerOneScoreLabel, playerTwoScoreLabel, playerOneAnswerLabel, playerTwoAnswerLabel, playerOneLabelResponse, playerTwoLabelResponse;
+    Label diceLabel, playerOneScoreLabel, playerTwoScoreLabel, playerOneAnswerLabel, playerTwoAnswerLabel, playerOneLabelResponse, playerTwoLabelResponse, playerOneLivesLabel, playerTwoLivesLabel, shortcutLabel;
     String[] team1questions;
     String[] team2questions;
     //temporary buttons and variables
     Button tmpT1Button, team1AnswerAButton, team1AnswerBButton, team1AnswerCButton;
     Button tmpT2Button, team2AnswerAButton, team2AnswerBButton, team2AnswerCButton;
-    Button expPack;
+    Button expPack, sourceCodeManagementGit, buildAutomation;
     Boolean questionDisplay = false;
     int t1count = 0;
     int t2count = 0;
@@ -55,9 +61,16 @@ public class Main extends Application {
 
     int playerOneScore = 0;
     int playerTwoScore = 0;
+    
+    int playerOneLives = 3;
+    int playerTwoLives = 3;
+    
     String a = "A";
     String b = "B";
     String c = "C";
+
+    //end game notification
+    Alert end;
 
 
     @Override
@@ -72,6 +85,11 @@ public class Main extends Application {
         gameMap = gameBoard.getMap();
         drawMap();
         gameBoard.displayMap();
+        
+        shortcutLabel = new Label ("");
+        shortcutLabel.setTranslateX(325);
+        shortcutLabel.setTranslateY(415);
+        root.getChildren().add(shortcutLabel);
 
         // adds a button to dice roll
         diceRoll = new Button("Roll");
@@ -85,21 +103,42 @@ public class Main extends Application {
         diceLabel.setTranslateY(100);
         root.getChildren().add(diceLabel);
 
-        playerOneScoreLabel = new Label("Player One: " + playerOneScore);
+        playerOneScoreLabel = new Label("Player One Score: " + playerOneScore);
         playerOneScoreLabel.setTranslateX(10);
         playerOneScoreLabel.setTranslateY(415);
         root.getChildren().add(playerOneScoreLabel);
 
-        playerTwoScoreLabel = new Label("Player Two: " + playerTwoScore);
-        playerTwoScoreLabel.setTranslateX(710);
+        playerTwoScoreLabel = new Label("Player Two Score: " + playerTwoScore);
+        playerTwoScoreLabel.setTranslateX(500);
         playerTwoScoreLabel.setTranslateY(415);
         root.getChildren().add(playerTwoScoreLabel);
 
+        playerOneLivesLabel = new Label("Player One Lives: " + playerOneLives);
+        playerOneLivesLabel.setTranslateX(150);
+        playerOneLivesLabel.setTranslateY(415);
+        root.getChildren().add(playerOneLivesLabel);
+
+        playerTwoLivesLabel = new Label("Player Two Lives: " + playerTwoLives);
+        playerTwoLivesLabel.setTranslateX(640);
+        playerTwoLivesLabel.setTranslateY(415);
+        root.getChildren().add(playerTwoLivesLabel);
+        
         // adds a button for Expansion Pack
         expPack = new Button("Expansion");
         expPack.setTranslateX(850);
         expPack.setTranslateY(375);
         root.getChildren().add(expPack);
+
+        // adds buttons for "Source Code Management & Git" and "Build Automation"
+        sourceCodeManagementGit =  new Button("SCManagement&Git");
+        sourceCodeManagementGit.setTranslateX(800);
+        sourceCodeManagementGit.setTranslateY(415);
+        root.getChildren().add(sourceCodeManagementGit);
+
+        buildAutomation = new Button("BA");
+        buildAutomation.setTranslateX(950);
+        buildAutomation.setTranslateY(415);
+        root.getChildren().add(buildAutomation);
 
 
         // initialize arrays with questions
@@ -303,8 +342,43 @@ public class Main extends Application {
         });
 
         team2AnswerButtons();
+    }
+    
+    public void reduceLivesPlayerOne() {
+    	System.out.println("\nX:" + playerOne.xCell + "Y:" + playerOne.yCell);
+        System.out.println("X:" + pOneImageView.getX() + "Y:" + pOneImageView.getY());
+        
+    	if(playerOneLives == 1) {
+    		playerOne.xCell = 0;
+    		playerOne.yCell = 0;
+            pOneImageView.setX(25);
+            pOneImageView.setY(0);
+    		playerOneLives = 3;
+    		playerOneLivesLabel.setText("Player One Lives: " + playerOneLives);
+    		
+    	}else {
+    		playerOneLives--;
+    		playerOneLivesLabel.setText("Player One Lives: " + playerOneLives);
+    	}
+    	
+    	System.out.println("\nX:" + playerOne.xCell + "Y:" + playerOne.yCell);
+        System.out.println("X:" + pOneImageView.getX() + "Y:" + pOneImageView.getY());
+    }
+    
+    public void reduceLivesPlayerTwo() {
+    	if(playerTwoLives == 1) {
+    		playerTwo.xCell = 0;
+    		playerTwo.yCell = 0;
+            pTwoImageView.setX(25);
+            pTwoImageView.setY(50);
+    		playerTwoLives= 3;
+    		playerTwoLivesLabel.setText("Player One Lives: " + playerTwoLives);
+    		
+    	}else {
+    		playerTwoLives--;
+    		playerTwoLivesLabel.setText("Player One Lives: " + playerTwoLives);
 
-
+    	}
     }
 
 
@@ -313,6 +387,27 @@ public class Main extends Application {
         team1AnswerAButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+            	 playerOne.xCell = rollValue + playerOne.xCell;
+                 pOneImageView.setX(playerOne.xCell*100+25);
+                 if(playerOne.xCell > 7) {
+                 	playerOne.xCell = playerOne.xCell - 8;
+                 	playerOne.yCell++;
+                 	pOneImageView.setX(playerOne.xCell*100+25);
+                 	pOneImageView.setY(playerOne.yCell*100);
+                 }
+                 
+                 if(playerOne.xCell == 1 && playerOne.yCell == 1) {
+                 	playerOne.yCell = 2;
+                 	pOneImageView.setY(playerOne.yCell*100);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                 }else if(playerOne.xCell == 5 && playerOne.yCell ==2) {
+                 	playerOne.yCell = 3;
+                 	pOneImageView.setY(playerOne.yCell*100);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                 } else {
+                 	shortcutLabel.setText("");
+                 }
+                 
                 if(t1count == 1 && isQuestionBeingDisplayed() == true){
                     playerOneScore++;
                     playerOneScoreLabel.setText("Player One: " + playerOneScore);
@@ -322,17 +417,21 @@ public class Main extends Application {
                     
                 }
                 else{
+                    reduceLivesPlayerOne();
                     playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
                     playerOneLabelResponse.setText("You are: " + "WRONG!");
                     dismissQuestion();
                 }
-                playerOne.xCell = rollValue + playerOne.xCell;
-                pOneImageView.setX(playerOne.xCell*100+25);
-                if(playerOne.xCell > 7) {
-                	playerOne.xCell = playerOne.xCell - 8;
-                	playerOne.yCell++;
-                	pOneImageView.setX(playerOne.xCell*100+25);
-                	pOneImageView.setY(playerOne.yCell*100+25);
+                //if exceeds game board at the end, go to x=7 and y=3
+                if(playerOne.yCell > 3 || (playerOne.yCell == 3 && playerOne.xCell > 7)){
+                    playerOne.xCell = 7;
+                    playerOne.yCell = 3;
+                    pOneImageView.setX(playerOne.xCell*100+25);
+                    pOneImageView.setY(playerOne.yCell*100);
+                }
+                System.out.println("T1 A Button T1X: " + playerOne.xCell + "T1Y " + playerOne.yCell);
+                if(playerOne.xCell == 7 && playerOne.yCell == 3){
+                    displayEndGameNotification();
                 }
             }
         });
@@ -340,6 +439,27 @@ public class Main extends Application {
         team1AnswerBButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+            	playerOne.xCell = rollValue + playerOne.xCell;
+                pOneImageView.setX(playerOne.xCell*100+25);
+                if(playerOne.xCell > 7) {
+                	playerOne.xCell = playerOne.xCell - 8;
+                	playerOne.yCell++;
+                	pOneImageView.setX(playerOne.xCell*100+25);
+                	pOneImageView.setY(playerOne.yCell*100);
+                }
+                
+                if(playerOne.xCell == 1 && playerOne.yCell == 1) {
+                	playerOne.yCell = 2;
+                	pOneImageView.setY(playerOne.yCell*100);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                }else if(playerOne.xCell == 5 && playerOne.yCell ==2) {
+                	playerOne.yCell = 3;
+                	pOneImageView.setY(playerOne.yCell*100);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                } else {
+                	shortcutLabel.setText("");
+                }
+
                 if((t1count == 2 && isQuestionBeingDisplayed() == true) ||
                         (t1count == 3 && isQuestionBeingDisplayed() == true) ||
                         (t1count == 4 && isQuestionBeingDisplayed() == true)){
@@ -350,25 +470,49 @@ public class Main extends Application {
                     dismissQuestion();
                 }
                 else{
+                    reduceLivesPlayerOne();
                     playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
                     playerOneLabelResponse.setText("You are: " + "WRONG!");
                     dismissQuestion();
                 }
-                playerOne.xCell = rollValue + playerOne.xCell;
-                pOneImageView.setX(playerOne.xCell*100+25);
-                if(playerOne.xCell > 7) {
-                	playerOne.xCell = playerOne.xCell - 8;
-                	playerOne.yCell++;
-                	pOneImageView.setX(playerOne.xCell*100+25);
-                	pOneImageView.setY(playerOne.yCell*100+25);
+                //if exceeds game board at the end, go to x=7 and y=3
+                if(playerOne.yCell > 3 || (playerOne.yCell == 3 && playerOne.xCell > 7)){
+                    playerOne.xCell = 7;
+                    playerOne.yCell = 3;
+                    pOneImageView.setX(playerOne.xCell*100+25);
+                    pOneImageView.setY(playerOne.yCell*100);
                 }
-
+                System.out.println("T1 B Button T1X: " + playerOne.xCell + "T1Y " + playerOne.yCell);
+                if(playerOne.xCell == 7 && playerOne.yCell == 3){
+                    displayEndGameNotification();
+                }
             }
         });
 
         team1AnswerCButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+            	playerOne.xCell = rollValue + playerOne.xCell;
+                pOneImageView.setX(playerOne.xCell*100+25);
+                if(playerOne.xCell > 7) {
+                	playerOne.xCell = playerOne.xCell - 8;
+                	playerOne.yCell++;
+                	pOneImageView.setX(playerOne.xCell*100+25);
+                	pOneImageView.setY(playerOne.yCell*100);
+                }
+                
+                if(playerOne.xCell == 1 && playerOne.yCell == 1) {
+                	playerOne.yCell = 2;
+                	pOneImageView.setY(playerOne.yCell*100);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                }else if(playerOne.xCell == 5 && playerOne.yCell ==2) {
+                	playerOne.yCell = 3;
+                	pOneImageView.setY(playerOne.yCell*100);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                } else {
+                	shortcutLabel.setText("");
+                }
+                
                 if(t1count == 5 && isQuestionBeingDisplayed() == true){
                     playerOneScore++;
                     playerOneScoreLabel.setText("Player One: " + playerOneScore);
@@ -378,27 +522,52 @@ public class Main extends Application {
                     
                 }
                 else{
+                    reduceLivesPlayerOne();
                     playerOneAnswerLabel.setText("Answer: " + getCorrectAnswer("player1"));
                     playerOneLabelResponse.setText("You are: " + "WRONG!");
                     dismissQuestion();
                 }
-                playerOne.xCell = rollValue + playerOne.xCell;
-                pOneImageView.setX(playerOne.xCell*100+25);
-                if(playerOne.xCell > 7) {
-                	playerOne.xCell = playerOne.xCell - 8;
-                	playerOne.yCell++;
-                	pOneImageView.setX(playerOne.xCell*100+25);
-                	pOneImageView.setY(playerOne.yCell*100+25);
+                //if exceeds game board at the end, go to x=7 and y=3
+                if(playerOne.yCell > 3 || (playerOne.yCell == 3 && playerOne.xCell > 7)){
+                    playerOne.xCell = 7;
+                    playerOne.yCell = 3;
+                    pOneImageView.setX(playerOne.xCell*100+25);
+                    pOneImageView.setY(playerOne.yCell*100);
+                }
+                System.out.println("T1 C Button T1X: " + playerOne.xCell + "T1Y " + playerOne.yCell);
+                if(playerOne.xCell == 7 && playerOne.yCell == 3){
+                    displayEndGameNotification();
                 }
             }
         });
-
+        System.out.println("TEAM 1: " + playerOne.xCell + " " + playerOne.yCell);
     }
 
     public void team2AnswerButtons(){
         team2AnswerAButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+            	playerTwo.xCell = rollValue + playerTwo.xCell;
+                pTwoImageView.setX(playerTwo.xCell*100+25);
+                if(playerTwo.xCell > 7) {
+                	playerTwo.xCell = playerTwo.xCell - 8;
+                	playerTwo.yCell++;
+                	pTwoImageView.setX(playerTwo.xCell*100+25);
+                	pTwoImageView.setY(playerTwo.yCell*100+50);
+                }
+                
+                if(playerTwo.xCell == 1 && playerTwo.yCell == 1) {
+                	playerTwo.yCell = 2;
+                	pTwoImageView.setY(playerTwo.yCell*100+50);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                }else if(playerTwo.xCell == 5 && playerTwo.yCell ==2) {
+                	playerTwo.yCell = 3;
+                	pTwoImageView.setY(playerTwo.yCell*100+50);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                } else {
+                 	shortcutLabel.setText("");
+                }
+                
                 if((t2count == 2 && isQuestionBeingDisplayed()) ||
                         (t2count == 3 && isQuestionBeingDisplayed())){
                     playerTwoScore++;
@@ -409,17 +578,22 @@ public class Main extends Application {
                     
                 }
                 else{
+                	reduceLivesPlayerTwo();
                     playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
                     playerTwoLabelResponse.setText("You Are: " + "WRONG!");
                     dismissQuestion();
+                    
                 }
-                playerTwo.xCell = rollValue + playerTwo.xCell;
-                pTwoImageView.setX(playerTwo.xCell*100+25);
-                if(playerTwo.xCell > 7) {
-                	playerTwo.xCell = playerTwo.xCell - 8;
-                	playerTwo.yCell++;
-                	pTwoImageView.setX(playerTwo.xCell*100+25);
-                	pTwoImageView.setY(playerTwo.yCell*100+25);
+                //if exceeds game board at the end, go to x=7 and y=3
+                if(playerTwo.yCell > 3 || (playerTwo.yCell == 3 && playerTwo.xCell > 7)){
+                    playerTwo.xCell = 7;
+                    playerTwo.yCell = 3;
+                    pTwoImageView.setX(playerTwo.xCell*100+25);
+                    pTwoImageView.setY(playerTwo.yCell*100+50);
+                }
+                System.out.println("T2 A Button T2X: " + playerTwo.xCell + "T2Y " + playerTwo.yCell);
+                if(playerTwo.xCell == 7 && playerTwo.yCell == 3){
+                    displayEndGameNotification();
                 }
             }
         });
@@ -427,6 +601,27 @@ public class Main extends Application {
         team2AnswerBButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+            	playerTwo.xCell = rollValue + playerTwo.xCell;
+                pTwoImageView.setX(playerTwo.xCell*100+25);
+                if(playerTwo.xCell > 7) {
+                	playerTwo.xCell = playerTwo.xCell - 8;
+                	playerTwo.yCell++;
+                	pTwoImageView.setX(playerTwo.xCell*100+25);
+                	pTwoImageView.setY(playerTwo.yCell*100+50);
+                }
+                
+                if(playerTwo.xCell == 1 && playerTwo.yCell == 1) {
+                	playerTwo.yCell = 2;
+                	pTwoImageView.setY(playerTwo.yCell*100+50);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                }else if(playerTwo.xCell == 5 && playerTwo.yCell ==2) {
+                	playerTwo.yCell = 3;
+                	pTwoImageView.setY(playerTwo.yCell*100+50);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                } else {
+                 	shortcutLabel.setText("");
+                }
+                 
                 if(t2count == 1 && isQuestionBeingDisplayed()){
                     playerTwoScore++;
                     playerTwoScoreLabel.setText("Player Two: " + playerTwoScore);
@@ -437,16 +632,22 @@ public class Main extends Application {
                     
                 }
                 else{
+                    reduceLivesPlayerTwo();
                     playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
                     playerTwoLabelResponse.setText("Your are: " + "WRONG!");
                     dismissQuestion();
                 }
-                pTwoImageView.setX(playerTwo.xCell*100+25);
-                if(playerTwo.xCell > 7) {
-                	playerTwo.xCell = playerTwo.xCell - 8;
-                	playerTwo.yCell++;
-                	pTwoImageView.setX(playerTwo.xCell*100+25);
-                	pTwoImageView.setY(playerTwo.yCell*100+25);
+                //if exceeds game board at the end, go to x=7 and y=3
+                System.out.println("T2 B Button T2X: " + playerTwo.xCell + "T2Y " + playerTwo.yCell);
+                if(playerTwo.yCell > 3 || (playerTwo.yCell == 3 && playerTwo.xCell > 7)){
+                    playerTwo.xCell = 7;
+                    playerTwo.yCell = 3;
+                    pTwoImageView.setX(playerTwo.xCell*100+25);
+                    pTwoImageView.setY(playerTwo.yCell*100+50);
+                }
+                System.out.println("T2 B Button T2X: " + playerTwo.xCell + "T2Y " + playerTwo.yCell);
+                if(playerTwo.xCell == 7 && playerTwo.yCell == 3){
+                    displayEndGameNotification();
                 }
             }
         });
@@ -454,6 +655,27 @@ public class Main extends Application {
         team2AnswerCButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+            	playerTwo.xCell = rollValue + playerTwo.xCell;
+                pTwoImageView.setX(playerTwo.xCell*100+25);
+                if(playerTwo.xCell > 7) {
+                	playerTwo.xCell = playerTwo.xCell - 8;
+                	playerTwo.yCell++;
+                	pTwoImageView.setX(playerTwo.xCell*100+25);
+                	pTwoImageView.setY(playerTwo.yCell*100+50);
+                }
+                
+                if(playerTwo.xCell == 1 && playerTwo.yCell == 1) {
+                	playerTwo.yCell = 2;
+                	pTwoImageView.setY(playerTwo.yCell*100+50);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                }else if(playerTwo.xCell == 5 && playerTwo.yCell ==2) {
+                	playerTwo.yCell = 3;
+                	pTwoImageView.setY(playerTwo.yCell*100+50);
+                	shortcutLabel.setText("You landed on a shortcut!");
+                } else {
+                 	shortcutLabel.setText("");
+                }
+                
                 if((t2count == 4 && isQuestionBeingDisplayed()) ||
                         (t2count == 5 && isQuestionBeingDisplayed())){
                     playerTwoScore++;
@@ -461,20 +683,23 @@ public class Main extends Application {
                     playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
                     playerTwoLabelResponse.setText("Your are: " + "CORRECT!");
                     dismissQuestion();
-                    
                 }
                 else{
+                    reduceLivesPlayerTwo();
                     playerTwoAnswerLabel.setText("Answer: " + getCorrectAnswer("player2"));
                     playerTwoLabelResponse.setText("You Are: " + "WRONG!");
                     dismissQuestion();
                 }
-                playerTwo.xCell = rollValue + playerTwo.xCell;
-                pTwoImageView.setX(playerTwo.xCell*100+25);
-                if(playerTwo.xCell > 7) {
-                	playerTwo.xCell = playerTwo.xCell - 8;
-                	playerTwo.yCell++;
-                	pTwoImageView.setX(playerTwo.xCell*100+25);
-                	pTwoImageView.setY(playerTwo.yCell*100+25);
+                //if exceeds game board at the end, go to x=7 and y=3
+                if(playerTwo.yCell > 3 || (playerTwo.yCell == 3 && playerTwo.xCell > 7)){
+                    playerTwo.xCell = 7;
+                    playerTwo.yCell = 3;
+                    pTwoImageView.setX(playerTwo.xCell*100+25);
+                    pTwoImageView.setY(playerTwo.yCell*100+50);
+                }
+                System.out.println("T2 C Button T2X: " + playerTwo.xCell + "T2Y " + playerTwo.yCell);
+                if(playerTwo.xCell == 7 && playerTwo.yCell == 3){
+                    displayEndGameNotification();
                 }
             }
         });
@@ -496,6 +721,15 @@ public class Main extends Application {
         else {
             return "";
         }
+    }
+
+    public void displayEndGameNotification(){
+        ButtonType playAgain = new ButtonType("Play Again", ButtonBar.ButtonData.OK_DONE);
+        ButtonType expansionPack = new ButtonType("Expansion Pack", ButtonBar.ButtonData.OK_DONE);
+        end = new Alert(Alert.AlertType.INFORMATION, "Good Game!", playAgain, expansionPack);
+        end.setTitle("Game Over");
+        end.setHeaderText(null);
+        end.showAndWait(); //returns a ButtonType value that we can use to figure out which button was pressed, if any
     }
 
     public void displayQuestion(String[] questions, int count, String player){
@@ -550,7 +784,7 @@ public class Main extends Application {
         
         root.getChildren().add(diceImageView);
 
-        return randInt;
+        return rollValue;
 
     }
 
@@ -561,11 +795,23 @@ public class Main extends Application {
                 Rectangle rect = new Rectangle(x*scale,y*scale,scale,scale);
                 rect.setStroke(Color.BLACK); // We want the black outline
                 if(x == 0 && y == 0){
-                    rect.setFill(Color.GREEN); // fills the board with random colors
+                    //rect.setFill(Color.GREEN); // fills the board with random colors
+                    startImage = new Image("/img/start.png", playerScale, playerScale, true, true);
+                    rect.setFill(new ImagePattern(startImage));
                 }
                 else if(x == 7 && y == 3){
-                    rect.setFill(Color.RED); // fills the board with random colors
+                    //rect.setFill(Color.RED); // fills the board with random colors
+                    endImage = new Image("/img/end.png", playerScale, playerScale, true, true);
+                    rect.setFill(new ImagePattern(endImage));
                 }
+                else if(x == 1 && y == 1 || x == 5 && y == 2) {
+                	shortcutImageOne = new Image("/img/shortcutImageOne.png", playerScale, playerScale, true, true);
+                    rect.setFill(new ImagePattern(shortcutImageOne));
+                } 
+//                else if(x == 7 && y == 1) {
+//                	shortcutImageTwo = new Image("/img/shortcutImageTwo.png", playerScale, playerScale, true, true);
+//                    rect.setFill(new ImagePattern(shortcutImageTwo));
+//                }
                 else{
                     rect.setFill(Color.color(Math.random(), Math.random(), Math.random())); // fills the board with random colors
                 }
