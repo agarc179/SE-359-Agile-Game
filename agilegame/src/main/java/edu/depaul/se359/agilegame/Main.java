@@ -174,7 +174,52 @@ public class Main extends Application {
                                                 "to get this work done?\n" +
                                                 "\nA) Spring planning\n" +
                                                 "B) Spring demo\n" +
-                                                "C) Backlog grooming\n"};
+                                                "C) Backlog grooming\n",
+
+                "Knock knock.\n"+
+                        "Who’s there?\n"+
+                        "Done.\n"+
+                        "Done who?\n"+
+                        "\nA) Depends on who you ask\n" +
+                        "B) Developer\n" +
+                        "C) Client\n",
+
+                "Define the phase:\n" +
+                        "Period that elapses from a cheery \n"
+                        + "“Sure we can make that change” \n"
+                        + "to a sign on the back of your chair that says \n"
+                        + "“ADD IT TO PHASE 2”.\n" +
+                        "\nA) Testing phase\n" +
+                        "B) Requirement phase\n" +
+                        "C) Development phase\n",
+
+                "Define the phase:\n" +
+                        "It’s something new we want in the software. \n"
+                        + "And you’re writing software. \n"
+                        + "So it’s all the in the scope of – you know, software. \n"
+                        + "Plus, it’s nothing major, really just a small tweak\n" +
+                        "\nA) In Scope\n" +
+                        "B) Sprint Backlog\n" +
+                        "C) Sprint Review\n",
+
+                "To create a Git repository, which command do you run?"+
+                        "\nA) git create <project-name>\n"+
+                        "B)git new " +
+                        "\nC) git init\n",
+
+                "Which command would you run to stage the "
+                        + "\nchanges in the js/app.js file?\n" +
+                        "\nA) git add js/app.js\n" +
+                        "B) git stage js/app.js\n" +
+                        "C) git commit js/app.js\n",
+
+                "What is the name of the file used to tell\n "
+                        + "Git to ignore certain files?"+
+                        "\nA) .gitignore  \n" +
+                        "B) ignore.git\n" +
+                        "C) .ignore\n"
+
+        };
 
         team2questions = new String[] {"PO: Estimates in 3, 2, 1...\n" +
                                             "Developer 1: 5\n" +
@@ -214,7 +259,67 @@ public class Main extends Application {
                                         "What is the typical length of sprint in a project?\n" +
                                             "\nA) 6 months\n" +
                                             "B) From start to finish of project\n" +
-                                            "C) 2 weeks\n"};
+                                            "C) 2 weeks\n",
+
+
+                "Define the phase:\n" +
+                        "It’s not done until the ten missing original requirements \n"
+                        + "make it back into the functionality."+
+                        "\nA)  Product Manager\n" +
+                        "B)  Product Owner\n" +
+                        "C) Developer\n",
+
+                "Define the phase:\n" +
+                        "It’s done. Remember we dropped ten of the features\n"
+                        + " from this sprint when you told me it couldn’t be "
+                        + "\ncoded in Flash? "
+                        + "\nNow they’re enhancements scheduled for Sprint…"+
+                        "\nA)  Developer\n" +
+                        "B)  Product Owner\n" +
+                        "C) Product Manager\n",
+
+                "Define the phase:\n" +
+                        "When the last hot fix deploys. What day is it?"+
+                        "\nA)  The Scrum Manager\n" +
+                        "B)  Product Owner\n" +
+                        "C) Product Manager\n",
+
+                "Define the phase:\n" +
+                        "The chicken is just not going to be able to "
+                        + "\ncross the road this month. "
+                        + "\nCrossing requirements were due last Friday. "
+                        + "\nShe will have to take her place on the backlog. "
+                        + "\nMaybe the chicken can cross the road in Sprint 9." +
+                        "\nA)  The Agile Project Manager\n" +
+                        "B)  Product Owner\n" +
+                        "C) Product Manager\n",
+
+                "Define the phase:\n" +
+                        "Because I have three other business initiatives "
+                        + "\nriding on the chicken being on the other side "
+                        + "\nof the road that were supposed to "
+                        + "\nstart six weeks ago. You’re killing me.\n" +
+                        "\nA)  The Business Owner\n" +
+                        "B)  Product Owner\n" +
+                        "C) Product Manager\n",
+
+                "Define the phase:\n" +
+                        "Because the requirements said so. "
+                        + "\nThe trebuchet was the most efficient method. "
+                        + "\nOh, she had to get to the other side alive? "
+                        + "\nWhere was that in the requirements?\n" +
+                        "\nA)  Developer\n" +
+                        "B)  Product Owner\n" +
+                        "C) Product Manager\n",
+
+                "True or False: \n"
+                        + "The git status command shows the status of the "
+                        + "\nintegrated repository test suite." +
+
+                        "\nA)  True\n" +
+                        "B)  False\n"
+
+        };
 
         // temporary testing for printing questions to console
         for(String x : team1questions){
@@ -707,15 +812,28 @@ public class Main extends Application {
 
     public String getCorrectAnswer(String player){
         if((t1count == 1 && player == "player1") ||
-                (t2count == 2 && player == "player2") || (t2count == 3 && player == "player2")){
+                (t1count == 6 && player == "player1") ||
+                (t1count == 7 && player == "player1") ||
+                (t1count == 8 && player == "player1") ||
+                (t1count == 10 && player == "player1") ||
+                (t1count == 11 && player == "player1") ||
+                (t2count == 2 && player == "player2") ||
+                (t2count == 6 && player == "player2") ||
+                (t2count == 7 && player == "player2") ||
+                (t2count == 8 && player == "player2") ||
+                (t2count == 9 && player == "player2") ||
+                (t2count == 3 && player == "player2")){
             return a;
         }
-        else if((t1count == 2 && player == "player1") || (t1count == 3 && player == "player1") || (t1count == 4 && player == "player1") ||
-                    (t2count == 1 && player == "player2")){
+        else if((t1count == 2 && player == "player1") ||
+                (t1count == 10 && player == "player2") ||
+                (t1count == 3 && player == "player1") || (t1count == 4 && player == "player1") ||
+                (t2count == 1 && player == "player2")){
             return b;
         }
         else if((t1count == 5 && player == "player1") ||
-                    (t2count == 4 && player == "player2") || (t2count == 5 && player == "player2")){
+                (t1count == 9 && player == "player1") ||
+                (t2count == 4 && player == "player2") || (t2count == 5 && player == "player2")){
             return c;
         }
         else {
